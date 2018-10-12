@@ -1,20 +1,18 @@
-# Flask-GraphQL
+# Quart-GraphQL
 
-[![Build Status](https://travis-ci.org/graphql-python/flask-graphql.svg?branch=master)](https://travis-ci.org/graphql-python/flask-graphql) [![Coverage Status](https://coveralls.io/repos/graphql-python/flask-graphql/badge.svg?branch=master&service=github)](https://coveralls.io/github/graphql-python/flask-graphql?branch=master) [![PyPI version](https://badge.fury.io/py/flask-graphql.svg)](https://badge.fury.io/py/flask-graphql)
-
-Adds GraphQL support to your Flask application.
+Adds GraphQL support to your Quart application.
 
 ## Usage
 
-Just use the `GraphQLView` view from `flask_graphql`
+Just use the `AsyncGraphQLView` view from `quart_graphql`
 
 ```python
-from flask_graphql import GraphQLView
+from quart_graphql import AsyncGraphQLView
 
-app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema, graphiql=True))
+app.add_url_rule('/graphql', view_func=AsyncGraphQLView.as_view('graphql', schema=schema, graphiql=True))
 
 # Optional, for adding batch query support (used in Apollo-Client)
-app.add_url_rule('/graphql/batch', view_func=GraphQLView.as_view('graphql', schema=schema, batch=True))
+app.add_url_rule('/graphql/batch', view_func=AsyncGraphQLView.as_view('graphql', schema=schema, batch=True))
 ```
 
 This will add `/graphql` and `/graphiql` endpoints to your app.
@@ -30,11 +28,11 @@ This will add `/graphql` and `/graphiql` endpoints to your app.
  * `batch`: Set the GraphQL view as batch (for using in [Apollo-Client](http://dev.apollodata.com/core/network.html#query-batching) or [ReactRelayNetworkLayer](https://github.com/nodkz/react-relay-network-layer))
  * `middleware`: A list of graphql [middlewares](http://docs.graphene-python.org/en/latest/execution/middleware/).
 
-You can also subclass `GraphQLView` and overwrite `get_root_value(self, request)` to have a dynamic root value
+You can also subclass `AsyncGraphQLView` and overwrite `get_root_value(self, request)` to have a dynamic root value
 per request.
 
 ```python
-class UserRootValue(GraphQLView):
+class UserRootValue(AsyncGraphQLView):
     def get_root_value(self, request):
         return request.user
 
