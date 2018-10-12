@@ -2,26 +2,22 @@ language: python
 sudo: false
 matrix:
   include:
-  - python: pypy
-    env: TOX_ENV=pypy
-  - python: '2.7'
-    env: TOX_ENV=py27
-  - python: '3.5'
-    env: TOX_ENV=py35
-  - python: '3.6'
-    env: TOX_ENV=py36
-  - python: '3.6'
-    env: TOX_ENV=import-order,flake8
+    - python: pypy
+      env: TOX_ENV=pypy
+    - python: "3.7"
+      env: TOX_ENV=py37
+    - python: "3.7"
+      env: TOX_ENV=import-order,flake8
 cache:
   directories:
-  - $HOME/.cache/pip
-  - $TRAVIS_BUILD_DIR/.tox
+    - $HOME/.cache/pip
+    - $TRAVIS_BUILD_DIR/.tox
 install:
-- pip install tox coveralls
+  - pip install tox coveralls
 script:
-- tox -e $TOX_ENV -- --cov=flask_graphql
+  - tox -e $TOX_ENV -- --cov=quart_graphql
 after_success:
-- coveralls
+  - coveralls
 deploy:
   provider: pypi
   user: syrusakbary

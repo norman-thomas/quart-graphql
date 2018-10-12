@@ -1,4 +1,7 @@
+import quart.flask_patch
+
 import pytest
+
 import json
 
 try:
@@ -12,12 +15,13 @@ except ImportError:
     from urllib.parse import urlencode
 
 from .app import create_app
-from flask import url_for
+from quart import url_for
 
 
 @pytest.fixture
 def app():
     return create_app()
+
 
 def url_string(**url_params):
     string = url_for('graphql')
@@ -455,7 +459,6 @@ def test_passes_request_into_request_context(client):
 def test_supports_pretty_printing(client):
     response = client.get(url_string(query='{context}'))
 
-
     assert response.status_code == 200
     assert response_json(response) == {
         'data': {
@@ -468,7 +471,7 @@ def test_post_multipart_data(client):
     query = 'mutation TestMutation { writeTest { test } }'
     response = client.post(
         url_string(),
-        data= {
+        data={
             'query': query,
             'file': (StringIO(), 'text1.txt'),
         },
@@ -514,8 +517,8 @@ def test_batch_supports_post_json_query_with_json_variables(client):
         # 'id': 1,
         'data': {'test': "Hello Dolly"}
     }]
- 
-          
+
+
 @pytest.mark.parametrize('app', [create_app(batch=True)])
 def test_batch_allows_post_with_operation_name(client):
     response = client.post(

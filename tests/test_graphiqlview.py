@@ -1,7 +1,8 @@
+import quart.flask_patch
 import pytest
 
 from .app import create_app
-from flask import url_for
+from quart import url_for
 
 
 @pytest.fixture
@@ -23,7 +24,7 @@ def test_graphiql_renders_pretty(client):
         '    "test": "Hello World"\n'
         '  }\n'
         '}'
-    ).replace("\"","\\\"").replace("\n","\\n")
+    ).replace("\"", "\\\"").replace("\n", "\\n")
 
     assert pretty_response in response.data.decode('utf-8')
 
