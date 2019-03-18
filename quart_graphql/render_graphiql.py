@@ -124,12 +124,12 @@ add "&raw" to the end of the URL within a browser.
 </html>'''
 
 
-def render_graphiql(params, result, graphiql_version=None,
-                    graphiql_template=None, graphiql_html_title=None):
+async def render_graphiql(params, result, graphiql_version=None,
+                    graphiql_template=None, graphiql_html_title=None) -> str:
     graphiql_version = graphiql_version or GRAPHIQL_VERSION
     template = graphiql_template or TEMPLATE
 
-    return render_template_string(
+    return await render_template_string(
         template,
         graphiql_version=graphiql_version,
         graphiql_html_title=graphiql_html_title,

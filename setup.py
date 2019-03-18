@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-required_packages = ["graphql-core>=2.1", "quart>=0.6.7", "graphql-server-core>=1.1"]
+required_packages = ["graphql-core-next>=1.0.2", "quart~=0.8.0", "graphql-server-core>=1.1"]
 
 setup(
     name="Quart-GraphQL",
@@ -23,7 +23,7 @@ setup(
     keywords="api graphql protocol rest quart",
     packages=find_packages(exclude=["tests"]),
     install_requires=required_packages,
-    tests_require=["pytest>=2.7.3"],
+    tests_require=["pytest>=4.3.1"],
     include_package_data=True,
     zip_safe=False,
     platforms="any",
